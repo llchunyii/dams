@@ -13,6 +13,7 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 	BEGIN TRY
+		BEGIN TRANSACTION;
 		IF @UserID IS NULL
 		BEGIN;
 			THROW 50000, 'User Id is required!', 1;
@@ -25,7 +26,6 @@ BEGIN
 			RETURN;
 		END
 
-		BEGIN TRANSACTION;
 			EXEC UpdateUserInformation
 				@UserID,
 				@Username,
@@ -49,4 +49,3 @@ BEGIN
 		THROW;
 	END CATCH
 END
-

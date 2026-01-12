@@ -1,22 +1,17 @@
 USE [DAMS];
 GO
 
+EXECUTE AS USER = 'John';
+SELECT * FROM dbo.Feedback;
+REVERT
 
-EXEC CreateNewAgent
-	'bonjames',
-	'bron',
-	'01938540923',
-	'bonjames@gmail.com',
-	'bonjames23',
-	'bon''s house',
-	'Online'
+SELECT * FROM dbo.Employee;
 
-BEGIN TRANSACTION;
-SELECT * FROM [User]
-EXEC UserLogin
-	'bonjames',
-	'bonjamess23'
+-- Check if the audit is enabled
+SELECT name, is_state_enabled
+FROM sys.server_audits
 
 
-BEGIN TRANSACTION;
-SELECT * FROM Department;
+-- Check if the database audit specification is enabled
+SELECT name, is_state_enabled
+FROM sys.database_audit_specifications
