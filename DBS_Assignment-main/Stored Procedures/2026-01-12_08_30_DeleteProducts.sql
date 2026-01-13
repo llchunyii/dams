@@ -1,0 +1,26 @@
+USE DAMS;
+
+GO
+
+CREATE OR ALTER PROCEDURE DeleteProducts
+	@ID INT
+AS
+BEGIN
+	SET NOCOUNT ON;
+	BEGIN TRY
+		BEGIN TRANSACTION;
+			IF @ID IS NULL
+			BEGIN;
+				THROW 50901, 'Please enter product id', 1;
+				RETURN;
+			END
+			DELETE FROM Products
+			WHERE ProductID = @ID
+	END TRY
+	BEGIN CATCH
+		ROLLBACK TRANSACTION
+		PRINT'Error encountered during product deletion'  + ERROR_MESSAGE();
+		THROW;
+	END CATCH
+END;
+

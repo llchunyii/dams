@@ -1,0 +1,10 @@
+USE DAMS;
+GO
+
+CREATE ROLE Auditors;
+CREATE LOGIN Jenny WITH PASSWORD = 'Jenny123';
+CREATE USER Jenny FOR LOGIN Jenny;
+
+ALTER ROLE Auditors ADD MEMBER Jenny;
+
+
