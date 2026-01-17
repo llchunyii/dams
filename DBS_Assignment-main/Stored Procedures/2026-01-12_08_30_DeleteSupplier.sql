@@ -1,0 +1,26 @@
+USE DAMS;
+
+GO
+
+CREATE OR ALTER PROCEDURE DeleteSupplier
+	@ID INT
+AS
+BEGIN
+	SET NOCOUNT ON;
+	BEGIN TRY
+		BEGIN TRANSACTION;
+			IF @ID IS NULL
+			BEGIN;
+				THROW 50601, 'Please enter supplier id', 1;
+				RETURN;
+			END
+			DELETE FROM Supplier
+			WHERE SupplierID = @ID
+	END TRY
+	BEGIN CATCH
+		ROLLBACK TRANSACTION
+		PRINT'Error encountered during supplier deletion'  + ERROR_MESSAGE();
+		THROW;
+	END CATCH
+END;
+

@@ -1,0 +1,19 @@
+-- Create Server Audit
+CREATE SERVER AUDIT DAMS_Server_Audit
+TO FILE
+(
+    FILEPATH = 'C:\SQLAuditLogs\',
+    MAXSIZE = 100 MB,
+    MAX_ROLLOVER_FILES = 5,
+    RESERVE_DISK_SPACE = OFF
+)
+WITH
+(
+    QUEUE_DELAY = 1000,
+    ON_FAILURE = CONTINUE
+);
+GO
+
+ALTER SERVER AUDIT DAMS_Server_Audit
+WITH (STATE = ON);
+GO
